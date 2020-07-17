@@ -35,6 +35,7 @@ pipeline {
 
             stage('Configure and Build Kubernetes Cluster'){
             steps {
+                withAWS(region:'us-west-2',credentials:'superuser')
                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                     sh 'ansible-playbook ./playbooks/create-cluster.yml'
                     }
@@ -42,6 +43,7 @@ pipeline {
             }
             stage('Deploy Updated Image to Cluster'){
                 steps {
+                    withAWS(region:'us-west-2',credentials:'superuser')
                     catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                     sh 'sudo kubectl apply -f ./kube-cluster/deployment.yml'
 					sh 'sudo kubectl apply -f ./kube-cluster/loadbalancer.yml'
