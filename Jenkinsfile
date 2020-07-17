@@ -43,8 +43,8 @@ pipeline {
             stage('Deploy Updated Image to Cluster'){
                 steps {
                     catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                    sh 'sudo kubectl apply -f ./cluster/deployment.yml'
-					sh 'sudo kubectl apply -f ./cluster/loadbalancer.yml'
+                    sh 'sudo kubectl apply -f ./kube-cluster/deployment.yml'
+					sh 'sudo kubectl apply -f ./kube-cluster/loadbalancer.yml'
                 }
             }
         }
