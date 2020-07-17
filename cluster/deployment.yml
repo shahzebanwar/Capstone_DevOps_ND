@@ -1,0 +1,23 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: capstone-project
+  labels:
+    app: capstone-project
+spec:
+  strategy:
+    type: RollingUpdate
+  replicas: 2
+  selector:
+    matchLabels:
+      app: capstone-project
+  template:
+    metadata:
+      labels:
+        app: capstone-project
+    spec:
+      containers:
+        - name: capstone-project
+          image: shahzeb01/capstone-html:deploy
+          ports:
+            - containerPort: 80
