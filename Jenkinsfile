@@ -44,7 +44,7 @@ pipeline {
                 steps {
                     catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                     sh 'sudo kubectl apply -f ./cluster/deployment.yml'
-					sh 'sudo kubectl apply -f ./cluster/load-balancer.yml'
+					sh 'sudo kubectl apply -f ./cluster/loadbalancer.yml'
                 }
             }
         }
