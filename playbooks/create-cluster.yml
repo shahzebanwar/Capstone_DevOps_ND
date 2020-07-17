@@ -1,8 +1,8 @@
 ---
-    - hosts: 127.0.0.1
+    - hosts: localhost
       connection: local
       vars:
-        download_dir: "{{ lookup('env', 'HOME') }}"
+        download_dir: "{{ lookup('env', 'home') }}"
         kubernetes_version: "1.14"
       become: yes
       tasks:
