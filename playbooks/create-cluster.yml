@@ -22,7 +22,7 @@
                 dest: "{{ download_dir }}"
                 remote_src: yes
             - name: Move eksctl to /usr/local/bin
-              command: mv {{ download_dir }}/eksctl /usr/local/bin
+              command: sudo mv {{ download_dir }}/eksctl /usr/local/bin
             - name: Give users permission to execute eksctl
               file:
                 path: /usr/local/bin/eksctl
@@ -35,7 +35,7 @@
                 url: "https://amazon-eks.s3-us-west-2.amazonaws.com/1.14.6/2019-08-22/bin/linux/amd64/aws-iam-authenticator"
                 dest: "{{ download_dir }}/aws-iam-authenticator"
             - name: Move aws-iam-authenticator to /usr/local/bin
-              command: mv {{ download_dir }}/aws-iam-authenticator /usr/local/bin
+              command: sudo mv {{ download_dir }}/aws-iam-authenticator /usr/local/bin
             - name: Give users permission to execute
               file:
                 path: /usr/local/bin/aws-iam-authenticator
@@ -48,7 +48,7 @@
                 url: "https://storage.googleapis.com/kubernetes-release/release/v1.16.2/bin/linux/amd64/kubectl"
                 dest: "{{ download_dir }}"
             - name: Move kubectl to /usr/local/bin
-              command: mv {{ download_dir }}/kubectl /usr/local/bin
+              command: sudo mv {{ download_dir }}/kubectl /usr/local/bin
             - name: Give users permission to execute
               file:
                 path: /usr/local/bin/kubectl
@@ -56,7 +56,7 @@
           when: "local_binaries.stdout.find('kubectl') == -1"
         # ensure that only one cluster exists at a time
         - name: Get existing cluster
-          command: eksctl get clusters
+          command: sudo eksctl get clusters
           register: existing_clusters
           become: no
         - debug: msg=" {{ existing_clusters.stdout }}"
@@ -64,7 +64,7 @@
           block:
             - name: Setup clusters on 2 nodes
               command: >
-                eksctl create cluster
+                sudo eksctl create cluster
                 --name capstone-project
                 --version {{ kubernetes_version }}
                 --region us-west-2
