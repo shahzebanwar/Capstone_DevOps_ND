@@ -1,6 +1,6 @@
 pipeline {
     environment {
-        registry = "shahzeb01/capstone-html:deploy"
+        registry = "shahzeb01/capstone-html"
         registryCredential = 'dockerhub'
         dockerImage = ''
     }
@@ -43,8 +43,8 @@ pipeline {
             stage('Deploy Updated Image to Cluster'){
                 steps {
                     catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                    sh 'sudo kubectl apply -f ./deployments/deployment.yml'
-					sh 'sudo kubectl apply -f ./deployments/load-balancer.yml'
+                    sh 'sudo kubectl apply -f ./cluster/deployment.yml'
+					sh 'sudo kubectl apply -f ./cluster/load-balancer.yml'
                 }
             }
         }
