@@ -2,7 +2,7 @@
     - hosts: localhost
       connection: local
       vars:
-        download_dir: "{{ lookup('env', 'home') }}"
+        download_dir: "{{ lookup('env', 'HOME') }}"
         kubernetes_version: "1.14"
       become: yes
       tasks:
